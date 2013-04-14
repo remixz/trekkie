@@ -2,12 +2,11 @@
 #include "pebble_app.h"
 #include "pebble_fonts.h"
 
-
 #define MY_UUID { 0x3F, 0x88, 0xA0, 0xD5, 0x83, 0x1E, 0x4F, 0x15, 0x87, 0x42, 0x13, 0xBC, 0x42, 0x53, 0x69, 0x0C }
 PBL_APP_INFO(MY_UUID,
              "Trekkie", "Zach Bruggeman",
              1, 0, /* App version */
-             DEFAULT_MENU_ICON,
+             RESOURCE_ID_IMAGE_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
 Window window;
@@ -15,7 +14,6 @@ BmpContainer background_image;
 
 TextLayer text_date_layer;
 TextLayer text_time_layer;
-TextLayer text_unix_layer;
 
 void update_display(PblTm *tick_time) {
   static char date_text[] = "Xxx 00";
@@ -37,9 +35,7 @@ void update_display(PblTm *tick_time) {
   }
 
   string_format_time(time_text, sizeof(time_text), time_format, tick_time);
-
   text_layer_set_text(&text_time_layer, time_text);
-
 }
 
 void handle_minute_tick(AppContextRef ctx, PebbleTickEvent *t) {
@@ -77,14 +73,12 @@ void handle_init(AppContextRef ctx) {
   PblTm tick_time;
   get_time(&tick_time);
   update_display(&tick_time);
-
 }
 
 void handle_deinit(AppContextRef ctx) {
   (void)ctx;
 
   bmp_deinit_container(&background_image);
-
 }
 
 void pbl_main(void *params) {
