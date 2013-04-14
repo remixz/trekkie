@@ -1,8 +1,10 @@
 ## Trekkie — Pebble Watchface
 
-![Image](http://i.imgur.com/nCQYg7v.png)
+![Image](http://imgur.com/P1F6KJa)
 
 An LCARS-inspired Pebble watchface. Swanky.
+
+NOTE: I forked this from remixz in order to make a couple of minor mods.  The month number has been added to the date line, I've removed the leading 0 when in 12h time, and I added a little am/pm below the time as appropriate.
 
 *I hold no responsibility if this breaks your Pebble! This is built using the early Proof of Concept SDK, and may be unstable.* I use it on my Pebble without issues though. :smile:
 
