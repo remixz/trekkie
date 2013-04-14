@@ -1,0 +1,30 @@
+
+{"friendlyVersion": "VERSION",
+ "versionDefName": "APP_RESOURCES",
+ "media": [
+	   {
+	    "type":"raw",
+	    "defName":"DUMMY",
+	    "file":"resource_map.json"
+	   },
+
+	   {
+	   	"type":"png",
+	   	"defName":"IMAGE_BACKGROUND",
+	   	"file":"images/background.png"
+	   },
+
+	   {
+	   	"type":"font",
+	   	"defName":"FONT_LCARS_60",
+	   	"characterRegex": "[:0-9]",
+	   	"file":"fonts/LCARS.ttf"
+	   },
+
+	   {
+	   	"type":"font",
+	   	"defName":"FONT_LCARS_BOLD_17",
+	   	"file":"fonts/LCARS_BOLD.ttf"
+	   }
+	  ]
+}
