@@ -1,6 +1,6 @@
 ## Trekkie — Pebble Watchface
 
-![Image](http://imgur.com/P1F6KJa)
+![Image](http://i.imgur.com/P1F6KJa.jpg)
 
 An LCARS-inspired Pebble watchface. Swanky.
 
