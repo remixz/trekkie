@@ -12,6 +12,7 @@ Because remembering paths is a pain, I've set up a Makefile to do that for you. 
 
 ```
 git clone https://github.com/remixz/trekkie.git /path/to/pebble-sdk/watches/trekkie
+cd trekkie
 make setup
 ```
 
