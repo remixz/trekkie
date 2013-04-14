@@ -1,5 +1,7 @@
 ## Trekkie — Pebble Watchface
 
+![Image](http://i.imgur.com/nCQYg7v.png)
+
 An LCARS-inspired Pebble watchface. Swanky.
 
 *I hold no responsibility if this breaks your Pebble! This is built using the early Proof of Concept SDK, and may be unstable.* I use it on my Pebble without issues though. :smile:
@@ -9,7 +11,7 @@ An LCARS-inspired Pebble watchface. Swanky.
 Because remembering paths is a pain, I've set up a Makefile to do that for you. Make sure to clone this watch into the proper directory:
 
 ```
-git clone https://github.com/remixz/trekkie.git /path/to/pebble-sdk/watches
+git clone https://github.com/remixz/trekkie.git /path/to/pebble-sdk/watches/trekkie
 make setup
 ```
 
