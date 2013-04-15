@@ -5,7 +5,7 @@
 #define MY_UUID { 0x3F, 0x88, 0xA0, 0xD5, 0x83, 0x1E, 0x4F, 0x15, 0x87, 0x42, 0x13, 0xBC, 0x42, 0x53, 0x69, 0x0C }
 PBL_APP_INFO(MY_UUID,
              "Trekkie", "Zach Bruggeman",
-             2, 0, /* App version */
+             2, 1, /* App version */
              RESOURCE_ID_IMAGE_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -23,7 +23,7 @@ void update_display(PblTm *tick_time) {
   static char new_date_text[] = "00/00/00";
   static char nice_date_text[] = "Xxx. Xxx. 00";
   static char time_text[] = "00:00";
-  static char ampm_text[] = "xx";
+  static char ampm_text[] = "  ";
   static char stardate_text[] = "0000.000";
   char *time_format;
 
