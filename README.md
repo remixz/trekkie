@@ -4,7 +4,7 @@
 
 ![Design](http://i.imgur.com/X5LgINj.png)
 
-An LCARS-inspired Pebble watchface. Swanky.
+An LCARS-inspired Pebble watchface. Swanky. [Download!](http://www.mypebblefaces.com/view?fID=458&aName=zachbruggeman&pageTitle=Trekkie&auID=472)
 
 *I hold no responsibility if this breaks your Pebble! This is built using the early Proof of Concept SDK, and may be unstable.* I use it on my Pebble without issues though. :smile:
 
