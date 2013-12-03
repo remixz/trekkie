@@ -1,0 +1,56 @@
+{
+  "uuid": "597be55a-7116-4457-b44b-990470bc19dd",
+  "shortName": "trekkie",
+  "longName": "trekkie",
+  "companyName": "Adam Goldsmith",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": [
+	  {
+	    "type":"png",
+	   	"name": "IMAGE_MENU_ICON",
+	   	"file":"images/icon.png",
+	   	"menuIcon":"true"
+	   },
+
+	   {
+	   	"type":"png",
+	   	"name":"IMAGE_BACKGROUND",
+	   	"file":"images/background.png"
+	   },
+
+	   {
+	   	"type":"png",
+	   	"name":"BATTERY_CHARGING_IMAGE",
+	   	"file":"images/charging.png"
+	   },
+
+	   {
+	   	"type":"font",
+	   	"name":"FONT_LCARS_60",
+	   	"characterRegex": "[:0-9]",
+	   	"file":"fonts/LCARS.ttf"
+	   },
+
+	   {
+	   	"type":"font",
+	   	"name":"FONT_LCARS_36",
+	   	"characterRegex": "[.0-9]",
+	   	"file":"fonts/LCARS.ttf"
+	   },
+
+	   {
+	   	"type":"font",
+	   	"name":"FONT_LCARS_BOLD_17",
+	   	"file":"fonts/LCARS_BOLD.ttf"
+	  }
+    ]
+  }
+}
