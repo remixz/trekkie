@@ -1,26 +1,20 @@
 ## Trekkie — Pebble Watchface
 
-![In action](http://i.imgur.com/gh8vOxD.png)
+![Design](https://raw.github.com/ad1217/trekkie/master/screenshot.png)
 
-![Design](http://i.imgur.com/X5LgINj.png)
+An LCARS-inspired Pebble watchface. [Download pre-built app](http://www.mypebblefaces.com/view?fID=458&aName=zachbruggeman&pageTitle=Trekkie&auID=472) (old version, SDK 1)
 
-An LCARS-inspired Pebble watchface. Swanky. [Download!](http://www.mypebblefaces.com/view?fID=458&aName=zachbruggeman&pageTitle=Trekkie&auID=472)
+*I hold no responsibility if this breaks your Pebble! This is built using the Beta of the Pebble SDK 2.0, and may be unstable.* I use it on my Pebble without issues though. :smile:
+### Changes in the new version:
+* added battery level and bluetooth connection monitor in the pane on the left
+* changed date format to DD.MM.YY (day.month.year)
 
-*I hold no responsibility if this breaks your Pebble! This is built using the early Proof of Concept SDK, and may be unstable.* I use it on my Pebble without issues though. :smile:
+### Future/Planned Changes
+* change bluetooth connection icon
 
-### Building
+### Building from source
 
-Because remembering paths is a pain, I've set up a Makefile to do that for you. Make sure to clone this watch into the proper directory:
+Using the `pebble` script from the sdk or [Hexxeh's bluetooth version](https://github.com/Hexxeh/libpebble), run
+`pebble build`.
 
-```
-git clone https://github.com/remixz/trekkie.git /path/to/pebble-sdk/watches/trekkie
-cd trekkie
-make setup
-```
-
-Then, to build, just run:
-```
-make build
-```
-
-Installing it on your Pebble is a bit more of an adventure. I install it using [`libpebble`](https://github.com/pebble/libpebble). If you are on Android, you can also serve the .pbw on a web-server and download it.
+Install with either `pebble install --phone [your phone's ip]`, `pebble install --pebble_id [your pebble's bluetooth adress]` (if using Hexxeh's libpebble), or put the .pbk on your phone and install it through the Pebble app.
