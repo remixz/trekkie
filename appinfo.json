@@ -1,15 +1,12 @@
 {
-  "uuid": "597be55a-7116-4457-b44b-990470bc19dd",
-  "shortName": "trekkie",
-  "longName": "trekkie",
-  "companyName": "Adam Goldsmith",
-  "versionCode": 1,
-  "versionLabel": "1.0.0",
+  "uuid": "3f88a0d5-831e-4f15-8742-13bc4253690c",
+  "shortName": "Trekkie",
+  "longName": "Trekkie",
+  "companyName": "Zach Bruggeman",
+  "versionCode": 3,
+  "versionLabel": "3.0.0",
   "watchapp": {
     "watchface": true
-  },
-  "appKeys": {
-    "dummy": 0
   },
   "resources": {
     "media": [
