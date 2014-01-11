@@ -18,8 +18,13 @@ static TextLayer *bluetooth_status_layer;
 void update_battery_display(BatteryChargeState charge_state){
   old_charge_state=charge_state;
   char* battery_percent_text="000";
-  snprintf(battery_percent_text, sizeof(battery_percent_text), "%02u", charge_state.charge_percent);
-  if(charge_state.charge_percent!=100) battery_percent_text[2]='%';
+  if(charge_state.charge_percent==100){
+    snprintf(battery_percent_text, sizeof(battery_percent_text), "%03u", charge_state.charge_percent);
+  }
+  else{
+    snprintf(battery_percent_text, sizeof(battery_percent_text), "%02u", charge_state.charge_percent);
+    battery_percent_text[2]='%';
+  }
   text_layer_set_text(battery_percent, battery_percent_text);
   layer_set_hidden(bitmap_layer_get_layer(battery_charge_image_layer), !charge_state.is_charging);
   layer_mark_dirty(battery_status_layer);
@@ -30,12 +35,8 @@ void update_bluetooth_status(bool connected){
 }
 
 void battery_status_layer_update(Layer* layer, GContext* ctx){
-  if(old_charge_state.is_plugged){
-    graphics_fill_rect(ctx, GRect(7, 93, 2, 2), 0, 0);
-  }
-  else{
-    graphics_fill_rect(ctx, GRect(4, 0, old_charge_state.charge_percent*16/100, 3), 0, 0);
-  }
+  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_fill_rect(ctx, GRect(0, 0, old_charge_state.charge_percent*19/100, 3), 0, 0);
 }
 
 void update_display(struct tm* tick_time) {
@@ -56,7 +57,7 @@ void update_display(struct tm* tick_time) {
       strncpy(date_text, new_date_text, sizeof(date_text));
       text_layer_set_text(text_date_layer, date_text);
       text_layer_set_text(text_nice_date_layer, nice_date_text);
-      text_layer_set_text(text_stardate_layer, stardate_text);  
+      text_layer_set_text(text_stardate_layer, stardate_text);
   }
 
   // Time layer
@@ -74,8 +75,8 @@ void update_display(struct tm* tick_time) {
     } else {
       strncpy(ampm_text, "pm", sizeof("pm"));
     }
+    text_layer_set_text(text_ampm_layer, ampm_text);
   }
-  text_layer_set_text(text_ampm_layer, ampm_text);
 }
 
 void handle_minute_tick(struct tm* tick_time, TimeUnits units_changed) {
@@ -85,11 +86,11 @@ void handle_minute_tick(struct tm* tick_time, TimeUnits units_changed) {
 static void init(void) {
   window=window_create();
   window_stack_push(window, true /* Animated */);
-  
+
   background_image_layer=bitmap_layer_create(layer_get_frame(window_get_root_layer(window)));
   background_image=gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
   bitmap_layer_set_bitmap(background_image_layer, background_image);
-  
+
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_image_layer));
 
   // Date Layer
@@ -126,26 +127,26 @@ static void init(void) {
   text_layer_set_font(text_stardate_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_36)));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_stardate_layer));
 
-  //Battery  layer
+  //Battery percent layer
   battery_percent=text_layer_create(GRect(8, 93, 27, 115));
   text_layer_set_background_color(battery_percent, GColorClear);
   text_layer_set_font(battery_percent, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17)));
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(battery_percent));
   
   //Battery charging layer
-  battery_charge_image_layer=bitmap_layer_create(GRect(10, 92, 16, 3));
+  battery_charge_image_layer=bitmap_layer_create(GRect(8, 92, 19, 3));
   battery_charge_image=gbitmap_create_with_resource(RESOURCE_ID_BATTERY_CHARGING_IMAGE);
   bitmap_layer_set_bitmap(battery_charge_image_layer, battery_charge_image);
   layer_set_hidden(bitmap_layer_get_layer(battery_charge_image_layer), true);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(battery_charge_image_layer));
-  
+
   //Battery status layer
-  battery_status_layer=layer_create(GRect(6, 92, 20, 3));
+  battery_status_layer=layer_create(GRect(8, 92, 19, 3));
   layer_add_child(window_get_root_layer(window), battery_status_layer);
   layer_set_update_proc(battery_status_layer, battery_status_layer_update);
-  
+
   //Bluetooth status layer
-  bluetooth_status_layer=text_layer_create(GRect(15, 107, 14, 14));
+  bluetooth_status_layer=text_layer_create(GRect(14, 109, 14, 14));
   text_layer_set_background_color(bluetooth_status_layer, GColorClear);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(bluetooth_status_layer));
 
@@ -171,7 +172,7 @@ static void deinit(void) {
 int main(void) {
   init();
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
 
   app_event_loop();
   deinit();
