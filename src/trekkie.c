@@ -49,17 +49,17 @@ void date_update(struct tm* tick_time, TimeUnits units_changed) {
 }
 
 void time_update(struct tm* tick_time, TimeUnits units_changed) {
-  static char time_text[] = "00:00";
-  static const char *time_format;
-  time_format = clock_is_24h_style()?"%R":"%I:%M";
-
-  // Time layer
-  strftime(time_text, sizeof(time_text), time_format, tick_time);
-  if (!clock_is_24h_style()) {
-    if (tick_time->tm_hour%12<10) memmove(time_text, &time_text[1], sizeof(time_text) - 1);
-    // AM/PM layer
+  if(units_changed>=3) date_update(tick_time, units_changed);
+  static char time_text[6];
+  if (clock_is_24h_style()) {
+    static const char *time_format="%R";
+    strftime(time_text, sizeof(time_text), time_format, tick_time);
+  }
+  else {
+    clock_copy_time_string(time_text, tick_time->tm_hour%12<10?5:6);
     text_layer_set_text(text_ampm_layer, tick_time->tm_hour<12?"am":"pm");
   }
+  // Time layer
   text_layer_set_text(text_time_layer, time_text);
 }
 
@@ -135,7 +135,6 @@ static void init(void) {
   struct tm* tick_time;
   tick_time=localtime(&now);
   time_update(tick_time, 3);
-  date_update(tick_time, 3);
   update_battery_display(battery_state_service_peek());
   update_bluetooth_status(bluetooth_connection_service_peek());
 
@@ -143,7 +142,6 @@ static void init(void) {
   bluetooth_connection_service_subscribe(update_bluetooth_status);
   battery_state_service_subscribe(update_battery_display);
   tick_timer_service_subscribe(MINUTE_UNIT, &time_update);
-  tick_timer_service_subscribe(DAY_UNIT, &date_update);
 }
 
 static void deinit(void) {
