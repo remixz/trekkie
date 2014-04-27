@@ -18,13 +18,8 @@ static TextLayer *bluetooth_status_layer;
 void update_battery_display(BatteryChargeState charge_state){
   old_charge_state=charge_state;
   char* battery_percent_text="000";
-  if(charge_state.charge_percent==100){
-    snprintf(battery_percent_text, sizeof(battery_percent_text), "%03u", charge_state.charge_percent);
-  }
-  else{
-    snprintf(battery_percent_text, sizeof(battery_percent_text), "%02u", charge_state.charge_percent);
-    battery_percent_text[2]='%';
-  }
+  snprintf(battery_percent_text, sizeof(battery_percent_text), "%02u", charge_state.charge_percent);
+  if(charge_state.charge_percent<100) battery_percent_text[2]='%';
   text_layer_set_text(battery_percent, battery_percent_text);
   layer_set_hidden(bitmap_layer_get_layer(battery_charge_image_layer), !charge_state.is_charging);
   layer_mark_dirty(battery_status_layer);
