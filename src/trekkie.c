@@ -55,22 +55,17 @@ void date_update(struct tm* tick_time, TimeUnits units_changed){
 
 void time_update(struct tm* tick_time, TimeUnits units_changed) {
   static char time_text[] = "00:00";
-  static char ampm_text[] = " ";
   static char *time_format=0;
   time_format=clock_is_24h_style()?"%R":"%I:%M";
 
   // Time layer
   strftime(time_text, sizeof(time_text), time_format, tick_time);
-  if (!clock_is_24h_style() && (time_text[0] == '0')) {
-    memmove(time_text, &time_text[1], sizeof(time_text) - 1);
+  if (!clock_is_24h_style()) {
+    if (tick_time->tm_hour%12<10) memmove(time_text, &time_text[1], sizeof(time_text) - 1);
+    // AM/PM layer
+    text_layer_set_text(text_ampm_layer, tick_time->tm_hour<12?"am":"pm");
   }
   text_layer_set_text(text_time_layer, time_text);
-
-  // AM/PM layer
-  if (!clock_is_24h_style()) {
-    strftime(ampm_text, sizeof(ampm_text), "%p", tick_time);
-    text_layer_set_text(text_ampm_layer, (ampm_text[0] == 'A')?"am":"pm");
-  }
 }
 
 static void init(void) {
