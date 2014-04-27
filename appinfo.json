@@ -28,6 +28,12 @@
 	   	"name":"BATTERY_CHARGING_IMAGE",
 	   	"file":"images/charging.png"
 	   },
+	   
+	   {
+	   	"type":"png",
+	   	"name":"BLUETOOTH_IMAGE",
+	   	"file":"images/bluetooth.png"
+	   },
 
 	   {
 	   	"type":"font",

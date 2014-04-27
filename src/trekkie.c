@@ -13,7 +13,8 @@ static BitmapLayer *battery_charge_image_layer;
 static TextLayer *battery_percent;
 static BatteryChargeState old_charge_state;
 static Layer *battery_status_layer;
-static TextLayer *bluetooth_status_layer;
+static GBitmap *bluetooth_image;
+static BitmapLayer *bluetooth_status_layer;
 
 void update_battery_display(BatteryChargeState charge_state) {
   static char battery_percent_text[] = "000";
@@ -26,7 +27,7 @@ void update_battery_display(BatteryChargeState charge_state) {
 }
 
 void update_bluetooth_status(bool connected) {
-  text_layer_set_text(bluetooth_status_layer, connected?"O":"X");
+  layer_set_hidden(bitmap_layer_get_layer(bluetooth_status_layer), !connected);
 }
 
 void battery_status_layer_update(Layer* layer, GContext* ctx) {
@@ -126,9 +127,10 @@ static void init(void) {
   layer_set_update_proc(battery_status_layer, battery_status_layer_update);
 
   // Bluetooth Status Layer
-  bluetooth_status_layer = text_layer_create(GRect(14, 109, 14, 14));
-  text_layer_set_background_color(bluetooth_status_layer, GColorClear);
-  layer_add_child(window_get_root_layer(window), text_layer_get_layer(bluetooth_status_layer));
+  bluetooth_status_layer = bitmap_layer_create(GRect(12, 111, 14, 13));
+  bluetooth_image = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_IMAGE);
+  bitmap_layer_set_bitmap(bluetooth_status_layer, bluetooth_image);
+  layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bluetooth_status_layer));
 
   // Prevent blank screen on init.
   time_t now = time(NULL);
@@ -148,7 +150,7 @@ static void deinit(void) {
   // Deinit, in reverse order from creation.
 
   // Destroy layers.
-  text_layer_destroy(bluetooth_status_layer);
+  bitmap_layer_destroy(bluetooth_status_layer);
   bitmap_layer_destroy(battery_charge_image_layer);
   text_layer_destroy(battery_percent);
   text_layer_destroy(text_stardate_layer);
@@ -159,6 +161,7 @@ static void deinit(void) {
   bitmap_layer_destroy(background_image_layer);
 
   // Destroy bitmaps.
+  gbitmap_destroy(bluetooth_image);
   gbitmap_destroy(background_image);
   gbitmap_destroy(battery_charge_image);
   
