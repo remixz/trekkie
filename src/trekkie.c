@@ -39,26 +39,25 @@ void battery_status_layer_update(Layer* layer, GContext* ctx){
   graphics_fill_rect(ctx, GRect(0, 0, old_charge_state.charge_percent*19/100, 3), 0, 0);
 }
 
-void update_display(struct tm* tick_time) {
+void date_update(struct tm* tick_time, TimeUnits units_changed){
   static char date_text[] = "00.00.00";
-  static char new_date_text[] = "00.00.00";
   static char nice_date_text[] = "Xxx. Xxx. 00";
-  static char time_text[] = "00:00";
-  static char ampm_text[] = "  ";
   static char stardate_text[] = "0000.000";
-  static char *time_format=0;
-  time_format=clock_is_24h_style()?"%R":"%I:%M";
 
-  // Date layers — These only need to update once a day, so this checks if it's different, and updates it only if it's different.
-  strftime(new_date_text, sizeof(date_text), "%d.%m.%y", tick_time);
+  // Date layers
+  strftime(date_text, sizeof(date_text), "%d.%m.%y", tick_time);
   strftime(nice_date_text, sizeof(nice_date_text), "%a.%n%b.%n%d", tick_time);
   strftime(stardate_text, sizeof(stardate_text), "%Y.%j", tick_time); // Based on Star Trek 2009 film's Stardate format
-  if (strncmp(new_date_text, date_text, sizeof(date_text)) != 0) {
-      strncpy(date_text, new_date_text, sizeof(date_text));
-      text_layer_set_text(text_date_layer, date_text);
-      text_layer_set_text(text_nice_date_layer, nice_date_text);
-      text_layer_set_text(text_stardate_layer, stardate_text);
-  }
+  text_layer_set_text(text_date_layer, date_text);
+  text_layer_set_text(text_nice_date_layer, nice_date_text);
+  text_layer_set_text(text_stardate_layer, stardate_text);
+}
+
+void time_update(struct tm* tick_time, TimeUnits units_changed) {
+  static char time_text[] = "00:00";
+  static char ampm_text[] = " ";
+  static char *time_format=0;
+  time_format=clock_is_24h_style()?"%R":"%I:%M";
 
   // Time layer
   strftime(time_text, sizeof(time_text), time_format, tick_time);
@@ -70,17 +69,8 @@ void update_display(struct tm* tick_time) {
   // AM/PM layer
   if (!clock_is_24h_style()) {
     strftime(ampm_text, sizeof(ampm_text), "%p", tick_time);
-    if (ampm_text[0] == 'A') {
-      strncpy(ampm_text, "am", sizeof("am"));
-    } else {
-      strncpy(ampm_text, "pm", sizeof("pm"));
-    }
-    text_layer_set_text(text_ampm_layer, ampm_text);
+    text_layer_set_text(text_ampm_layer, (ampm_text[0] == 'A')?"am":"pm");
   }
-}
-
-void handle_minute_tick(struct tm* tick_time, TimeUnits units_changed) {
-  update_display(tick_time);
 }
 
 static void init(void) {
@@ -154,13 +144,15 @@ static void init(void) {
   time_t now=time(NULL);
   struct tm* tick_time;
   tick_time=localtime(&now);
-  update_display(tick_time);
+  time_update(tick_time, 3);
+  date_update(tick_time, 3);
   update_battery_display(battery_state_service_peek());
   update_bluetooth_status(bluetooth_connection_service_peek());
 
   bluetooth_connection_service_subscribe(update_bluetooth_status);
   battery_state_service_subscribe(update_battery_display);
-  tick_timer_service_subscribe(MINUTE_UNIT, &handle_minute_tick);
+  tick_timer_service_subscribe(MINUTE_UNIT, &time_update);
+  tick_timer_service_subscribe(DAY_UNIT, &date_update);
 }
 
 static void deinit(void) {
