@@ -156,8 +156,21 @@ static void init(void) {
 }
 
 static void deinit(void) {
+  //destroy layers (reverse order from creation)
+  text_layer_destroy(bluetooth_status_layer);
+  bitmap_layer_destroy(battery_charge_image_layer);
+  text_layer_destroy(battery_percent);
+  text_layer_destroy(text_stardate_layer);
+  text_layer_destroy(text_ampm_layer);
+  text_layer_destroy(text_time_layer);
+  text_layer_destroy(text_nice_date_layer);
+  text_layer_destroy(text_date_layer);
+  bitmap_layer_destroy(background_image_layer);
+
+  //destroy bitmaps
   gbitmap_destroy(background_image);
   gbitmap_destroy(battery_charge_image);
+  
   window_destroy(window);
 }
 
