@@ -15,6 +15,9 @@ static BatteryChargeState old_charge_state;
 static Layer *battery_status_layer;
 static GBitmap *bluetooth_image;
 static BitmapLayer *bluetooth_status_layer;
+static GFont *LCARS17;
+static GFont *LCARS36;
+static GFont *LCARS60;
 
 void update_battery_display(BatteryChargeState charge_state) {
   static char battery_percent_text[] = "000";
@@ -68,6 +71,11 @@ static void init(void) {
   window = window_create();
   window_stack_push(window, true /* Animated */);
 
+  //Fonts
+  LCARS17=fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17));
+  LCARS36=fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_36));
+  LCARS60=fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_60));
+
   // Background Layer
   background_image_layer = bitmap_layer_create(layer_get_frame(window_get_root_layer(window)));
   background_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
@@ -78,40 +86,40 @@ static void init(void) {
   text_date_layer = text_layer_create(GRect(79, 5, 144-79, 168-5));
   text_layer_set_text_color(text_date_layer, GColorWhite);
   text_layer_set_background_color(text_date_layer, GColorClear);
-  text_layer_set_font(text_date_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17)));
+  text_layer_set_font(text_date_layer, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_date_layer));
 
   // Nice Date Layer
   text_nice_date_layer = text_layer_create(GRect(6, 26, 144-6, 168-26));
   text_layer_set_background_color(text_nice_date_layer, GColorClear);
-  text_layer_set_font(text_nice_date_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17)));
+  text_layer_set_font(text_nice_date_layer, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_nice_date_layer));
 
   // Time Layer
   text_time_layer=text_layer_create(GRect(36, 12, 144-36, 168-12));
   text_layer_set_text_color(text_time_layer, GColorWhite);
   text_layer_set_background_color(text_time_layer, GColorClear);
-  text_layer_set_font(text_time_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_60)));
+  text_layer_set_font(text_time_layer, LCARS60);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_time_layer));
 
   // AM/PM Layer
   text_ampm_layer = text_layer_create(GRect(36, 69, 144-36, 168-69));
   text_layer_set_text_color(text_ampm_layer, GColorWhite);
   text_layer_set_background_color(text_ampm_layer, GColorClear);
-  text_layer_set_font(text_ampm_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17)));
+  text_layer_set_font(text_ampm_layer, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_ampm_layer));
 
   // Stardate Layer
   text_stardate_layer = text_layer_create(GRect(36, 95, 144-36, 168-95));
   text_layer_set_text_color(text_stardate_layer, GColorWhite);
   text_layer_set_background_color(text_stardate_layer, GColorClear);
-  text_layer_set_font(text_stardate_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_36)));
+  text_layer_set_font(text_stardate_layer, LCARS36);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_stardate_layer));
 
   // Battery Percent Layer
   battery_percent = text_layer_create(GRect(8, 93, 27, 115));
   text_layer_set_background_color(battery_percent, GColorClear);
-  text_layer_set_font(battery_percent, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LCARS_BOLD_17)));
+  text_layer_set_font(battery_percent, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(battery_percent));
   
   // Battery Charging Layer
@@ -151,6 +159,7 @@ static void deinit(void) {
 
   // Destroy layers.
   bitmap_layer_destroy(bluetooth_status_layer);
+  layer_destroy(battery_status_layer);
   bitmap_layer_destroy(battery_charge_image_layer);
   text_layer_destroy(battery_percent);
   text_layer_destroy(text_stardate_layer);
@@ -162,8 +171,13 @@ static void deinit(void) {
 
   // Destroy bitmaps.
   gbitmap_destroy(bluetooth_image);
-  gbitmap_destroy(background_image);
   gbitmap_destroy(battery_charge_image);
+  gbitmap_destroy(background_image);
+
+  //Destroy fonts.
+  fonts_unload_custom_font(LCARS17);
+  fonts_unload_custom_font(LCARS36);
+  fonts_unload_custom_font(LCARS60);
   
   // Destroy window.
   window_destroy(window);
