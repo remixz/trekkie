@@ -53,7 +53,7 @@ void date_update(struct tm* tick_time, TimeUnits units_changed) {
 }
 
 void time_update(struct tm* tick_time, TimeUnits units_changed) {
-  if(units_changed>=3) date_update(tick_time, units_changed);
+  if(units_changed>=DAY_UNIT) date_update(tick_time, units_changed);
   static char time_text[6];
   if (clock_is_24h_style()) {
     static const char *time_format="%R";
@@ -144,7 +144,7 @@ static void init(void) {
   time_t now = time(NULL);
   struct tm* tick_time;
   tick_time=localtime(&now);
-  time_update(tick_time, 3);
+  time_update(tick_time, DAY_UNIT);
   update_battery_display(battery_state_service_peek());
   update_bluetooth_status(bluetooth_connection_service_peek());
 
