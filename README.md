@@ -2,15 +2,12 @@
 
 ![Design](https://raw.github.com/ad1217/trekkie/master/screenshot.png)
 
-An LCARS-inspired Pebble watchface. [Download pre-built app](http://www.mypebblefaces.com/view?fID=458&aName=zachbruggeman&pageTitle=Trekkie&auID=472) (old version, SDK 1)
+An LCARS-inspired Pebble watchface. Download the pre-built watchface from the Pebble App Store!
 
-*I hold no responsibility if this breaks your Pebble! This is built using the Beta of the Pebble SDK 2.0, and may be unstable.* I use it on my Pebble without issues though. :smile:
-### Changes in the new version:
-* added battery level and bluetooth connection monitor in the pane on the left
+*This watchface may be unstable. I hold no responsibility if this breaks your Pebble!* I use it on my Pebble without issues though. :smile:
+### Changes in the since SDK 1.x
+* added battery level and bluetooth connection icon (recently changed) in the pane on the left
 * changed date format to DD.MM.YY (day.month.year)
-
-### Future/Planned Changes
-* change bluetooth connection icon
 
 ### Building from source
 
