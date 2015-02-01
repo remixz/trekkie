@@ -51,7 +51,7 @@
     "shortName": "Trekkie",
     "uuid": "3f88a0d5-831e-4f15-8742-13bc4253690c",
     "versionCode": 3,
-    "versionLabel": "4.0",
+    "versionLabel": "4.1",
     "watchapp": {
         "watchface": true
     }

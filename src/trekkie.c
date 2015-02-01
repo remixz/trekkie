@@ -54,6 +54,7 @@ void date_update(struct tm* tick_time, TimeUnits units_changed) {
 
 void time_update(struct tm* tick_time, TimeUnits units_changed) {
   if(units_changed>=DAY_UNIT) date_update(tick_time, units_changed);
+
   static char time_text[6];
   if (clock_is_24h_style()) {
     static const char *time_format="%H:%M";
@@ -64,6 +65,7 @@ void time_update(struct tm* tick_time, TimeUnits units_changed) {
     strftime(time_text, sizeof(time_text), time_format, tick_time);
     text_layer_set_text(text_ampm_layer, tick_time->tm_hour<12?"am":"pm");
   }
+
   // Time layer
   text_layer_set_text(text_time_layer, time_text);
 }
