@@ -56,11 +56,12 @@ void time_update(struct tm* tick_time, TimeUnits units_changed) {
   if(units_changed>=DAY_UNIT) date_update(tick_time, units_changed);
   static char time_text[6];
   if (clock_is_24h_style()) {
-    static const char *time_format="%R";
+    static const char *time_format="%H:%M";
     strftime(time_text, sizeof(time_text), time_format, tick_time);
   }
   else {
-    clock_copy_time_string(time_text, tick_time->tm_hour%12<10?5:6);
+    static const char *time_format="%I:%M";
+    strftime(time_text, sizeof(time_text), time_format, tick_time);
     text_layer_set_text(text_ampm_layer, tick_time->tm_hour<12?"am":"pm");
   }
   // Time layer
