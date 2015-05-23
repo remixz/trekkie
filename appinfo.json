@@ -1,58 +1,63 @@
 {
-    "appKeys": {},
-    "capabilities": [
-        ""
-    ],
-    "companyName": "Zach Bruggeman",
-    "longName": "Trekkie",
-    "projectType": "native",
-    "resources": {
-        "media": [
-            {
-                "file": "fonts/LCARS_BOLD.ttf",
-                "name": "FONT_LCARS_BOLD_17",
-                "type": "font"
-            },
-            {
-                "characterRegex": "[.0-9]",
-                "file": "fonts/LCARS.ttf",
-                "name": "FONT_LCARS_36",
-                "type": "font"
-            },
-            {
-                "characterRegex": "[:0-9]",
-                "file": "fonts/LCARS.ttf",
-                "name": "FONT_LCARS_60",
-                "type": "font"
-            },
-            {
-                "file": "images/bluetooth.png",
-                "name": "BLUETOOTH_IMAGE",
-                "type": "png"
-            },
-            {
-                "file": "images/charging.png",
-                "name": "BATTERY_CHARGING_IMAGE",
-                "type": "png"
-            },
-            {
-                "file": "images/background.png",
-                "name": "IMAGE_BACKGROUND",
-                "type": "png"
-            },
-            {
-                "file": "images/icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_MENU_ICON",
-                "type": "png"
-            }
-        ]
-    },
-    "shortName": "Trekkie",
-    "uuid": "3f88a0d5-831e-4f15-8742-13bc4253690c",
-    "versionCode": 3,
-    "versionLabel": "4.1",
-    "watchapp": {
-        "watchface": true
-    }
+  "appKeys": {},
+  "capabilities": [
+    ""
+  ],
+  "companyName": "Zach Bruggeman",
+  "longName": "Trekkie",
+  "projectType": "native",
+  "resources": {
+    "media": [
+      {
+        "file": "fonts/LCARS_BOLD.ttf",
+        "name": "FONT_LCARS_BOLD_17",
+        "type": "font"
+      },
+      {
+        "characterRegex": "[.0-9]",
+        "file": "fonts/LCARS.ttf",
+        "name": "FONT_LCARS_36",
+        "type": "font"
+      },
+      {
+        "characterRegex": "[:0-9]",
+        "file": "fonts/LCARS.ttf",
+        "name": "FONT_LCARS_60",
+        "type": "font"
+      },
+      {
+        "file": "images/bluetooth.png",
+        "name": "BLUETOOTH_IMAGE",
+        "type": "png"
+      },
+      {
+        "file": "images/charging.png",
+        "name": "BATTERY_CHARGING_IMAGE",
+        "type": "png"
+      },
+      {
+        "file": "images/background.png",
+        "name": "IMAGE_BACKGROUND",
+        "type": "png"
+      },
+      {
+        "file": "images/icon.png",
+        "menuIcon": true,
+        "name": "IMAGE_MENU_ICON",
+        "type": "png"
+      }
+    ]
+  },
+  "shortName": "Trekkie",
+  "uuid": "3f88a0d5-831e-4f15-8742-13bc4253690c",
+  "versionCode": 3,
+  "versionLabel": "4.1",
+  "watchapp": {
+    "watchface": true
+  },
+  "targetPlatforms": [
+    "aplite",
+    "basalt"
+  ],
+  "sdkVersion": "3"
 }

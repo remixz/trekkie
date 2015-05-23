@@ -87,7 +87,11 @@ static void init(void) {
 
   // Date Layer
   text_date_layer = text_layer_create(GRect(79, 5, 144-79, 168-5));
-  text_layer_set_text_color(text_date_layer, GColorWhite);
+#ifdef PBL_COLOR
+  text_layer_set_text_color(text_date_layer, GColorFromHEX(0xFFAA55));
+#else
+  text_layer_set_text_color(text_date_layer, GColorWhite); 
+#endif
   text_layer_set_background_color(text_date_layer, GColorClear);
   text_layer_set_font(text_date_layer, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_date_layer));
@@ -100,21 +104,33 @@ static void init(void) {
 
   // Time Layer
   text_time_layer=text_layer_create(GRect(36, 12, 144-36, 168-12));
-  text_layer_set_text_color(text_time_layer, GColorWhite);
+#ifdef PBL_COLOR
+  text_layer_set_text_color(text_time_layer, GColorFromHEX(0xAAAAFF));
+#else
+  text_layer_set_text_color(text_time_layer, GColorWhite); 
+#endif
   text_layer_set_background_color(text_time_layer, GColorClear);
   text_layer_set_font(text_time_layer, LCARS60);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_time_layer));
 
   // AM/PM Layer
   text_ampm_layer = text_layer_create(GRect(36, 69, 144-36, 168-69));
-  text_layer_set_text_color(text_ampm_layer, GColorWhite);
+#ifdef PBL_COLOR
+  text_layer_set_text_color(text_ampm_layer, GColorFromHEX(0xAAAAFF));
+#else
+  text_layer_set_text_color(text_ampm_layer, GColorWhite); 
+#endif
   text_layer_set_background_color(text_ampm_layer, GColorClear);
   text_layer_set_font(text_ampm_layer, LCARS17);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_ampm_layer));
 
   // Stardate Layer
   text_stardate_layer = text_layer_create(GRect(36, 95, 144-36, 168-95));
-  text_layer_set_text_color(text_stardate_layer, GColorWhite);
+#ifdef PBL_COLOR
+  text_layer_set_text_color(text_stardate_layer, GColorFromHEX(0xFFAA00));
+#else
+  text_layer_set_text_color(text_stardate_layer, GColorWhite); 
+#endif
   text_layer_set_background_color(text_stardate_layer, GColorClear);
   text_layer_set_font(text_stardate_layer, LCARS36);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_stardate_layer));
@@ -142,6 +158,9 @@ static void init(void) {
   bluetooth_image = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_IMAGE);
   bitmap_layer_set_bitmap(bluetooth_status_layer, bluetooth_image);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bluetooth_status_layer));
+#ifdef PBL_COLOR
+  bitmap_layer_set_compositing_mode(bluetooth_status_layer, GCompOpSet);
+#endif
 
   // Prevent blank screen on init.
   time_t now = time(NULL);
