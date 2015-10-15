@@ -15,9 +15,9 @@ static BatteryChargeState old_charge_state;
 static Layer *battery_status_layer;
 static GBitmap *bluetooth_image;
 static BitmapLayer *bluetooth_status_layer;
-static GFont *LCARS17;
-static GFont *LCARS36;
-static GFont *LCARS60;
+static GFont LCARS17;
+static GFont LCARS36;
+static GFont LCARS60;
 
 void update_battery_display(BatteryChargeState charge_state) {
   static char battery_percent_text[] = "000";
